@@ -24,12 +24,36 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 10px;
+  outline: none;
+  border: none;
+  height: 70px;
+  border-radius: 15px;
+  background: #FEFEFE;
+  border: 1px solid #E0E0E0;
   margin-bottom: 10px;
+  width: 700px;
+  padding-left: 20px;
+  color: #4B6A9B;
+font-family: "Space Mono";
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 25px; /* 138.889% */
 `;
 
 const Button = styled.button`
-  padding: 10px;
+  width: 106px;
+  height: 50px;
+  margin-left: -118px;
+  color: #FFF;
+font-family: "Space Mono";
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+  border-radius: 10px;
+  border: none;
+  background-color: #2D9CDB;
 `;
 
 const ProfileInfo = styled.div`
@@ -67,6 +91,7 @@ const App: React.FC = () => {
   return (
     <Container>
       <h1>GitHub Profile Searcher</h1>
+      <div className="input">
       <Input 
         type="text" 
         placeholder="Enter GitHub username" 
@@ -74,6 +99,7 @@ const App: React.FC = () => {
         onChange={(e) => setUsername(e.target.value)} 
       />
       <Button onClick={handleSearch}>Search</Button>
+      </div>
 
       {profileData.profile && (
         <ProfileInfo>
