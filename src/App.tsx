@@ -1,25 +1,21 @@
 // App.tsx
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-// Define types for user profile and repository
 interface UserProfile {
   login: string;
   name: string;
   public_repos: number;
-  created_at: string; // Assuming 'created_at' represents the join date
-  // Additional properties
+  created_at: string;
   joinDate: string;
   pseudoName: string;
-  socials: string[]; // Assuming an array of social media links
+  socials: string[];
   followers: number;
   following: number;
-}
-
-interface Repository {
-  id: number;
-  name: string;
-  // Add more properties as needed
+  avatar_url: string;
+  location: string; // Added location
+  url: string; // Added URL
+  buildingPlace: string; // Added buildingPlace
 }
 
 const Container = styled.div`
@@ -36,16 +32,17 @@ const Input = styled.input`
   border-radius: 15px;
   margin-bottom: 10px;
   width: 730px;
-  padding-left: 20px;
+  padding-left: 48px;
+  padding-right: 48px;
   color: #4B6A9B;
   font-family: "Space Mono";
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  line-height: 25px; /* 138.889% */
+  line-height: 25px;
   border-radius: 15px;
-background: #FEFEFE;
-box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.20);
+  background: #FEFEFE;
+  box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.20);
 `;
 
 const Button = styled.button`
@@ -65,145 +62,148 @@ const Button = styled.button`
 `;
 
 const ProfileInfo = styled.div`
-width: auto;
-height: 420px;
-padding: 48px;
-margin-top: 20px;
-border-radius: 15px;
-background: #FEFEFE;
-box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.20);
-
+  width: 730px;
+  height: 420px;
+  padding: 48px;
+  margin-top: 20px;
+  border-radius: 15px;
+  background: #FEFEFE;
+  box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.20);
 `;
 
-const ProfileLink = styled.a`
-  cursor: pointer;
-  text-decoration: none;
-  color: #0079FF;
-font-family: "Space Mono";
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin: 0;
-`;
+// const ProfileLink = styled.h2`
+//   cursor: pointer;
+//   text-decoration: none;
+//   color: #0079FF;
+//   font-family: "Space Mono";
+//   font-size: 16px;
+//   font-style: normal;
+//   font-weight: 400;
+//   line-height: normal;
+//   margin: 0;
+//   margin-top: -30px;
+// `;
 
 const ContainerForFollow = styled.div`
-width: 480px;
-height: 85px;
-padding-left: 32px;
-padding-right: 83px;
-background-color: #F6F8FF;
-border-radius: 10px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-& p {
-  display: grid;
-  flex-direction: column;
-  color: #4B6A9B;
-font-family: "Space Mono";
-font-size: 13px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-& span {
-  color: #2B3442;
-font-family: "Space Mono";
-font-size: 22px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-text-transform: uppercase;
-}
+  width: 480px;
+  height: 85px;
+  padding-left: 32px;
+  padding-right: 83px;
+  background-color: #F6F8FF;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & p {
+    display: grid;
+    flex-direction: column;
+    color: #4B6A9B;
+    font-family: "Space Mono";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    & span {
+      color: #2B3442;
+      font-family: "Space Mono";
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+  }
 `;
 
 const Name = styled.p`
-margin: 0;
-color: #2B3442;
-font-family: "Space Mono";
-font-size: 26px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-text-transform: uppercase;
+  margin: 0;
+  color: #2B3442;
+  font-family: "Space Mono";
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
 `;
 
 const Names = styled.div`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
-const Head = styled.div` 
-display: flex;
-align-items: center;
-justify-content: space-between;
-& p {
+const Head = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin: 0;
   color: #4B6A9B;
-font-family: "Space Mono";
-font-size: 13px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-}
+  font-family: "Space Mono";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+
+  a {
+    color: #0079FF;
+    text-decoration: none;
+    font-family: "Space Mono";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+`;
+
+const LeftForFollow = styled.div`
+  display: grid;
+  width: 100%;
+  justify-content: flex-end;
+  flex-direction: column;
 `;
 
 
-
-// Function to enrich profile data with additional properties
-const enrichProfileData = (profileData: UserProfile): UserProfile => {
-  return {
-    ...profileData,
-    joinDate: new Date(profileData.created_at).toLocaleDateString(),
-    pseudoName: profileData.login,
-    socials: profileData.socials, // Add actual social media links
-    followers: profileData.followers,
-    following: profileData.following,
-  };
-};
 
 const App: React.FC = () => {
   const [username, setUsername] = useState('');
-  const [profileData, setProfileData] = useState<{ profile: UserProfile | null; repositories: Repository[] | null }>({
+  const [profileData, setProfileData] = useState<{ profile: UserProfile | null }>({
     profile: null,
-    repositories: null,
   });
 
   const handleSearch = async () => {
     try {
       if (!username) {
-        // If username is empty, show an alert or handle the validation as needed
         alert('Please enter a GitHub username');
         return;
       }
 
-      // Fetch user profile data
       const profileResponse = await fetch(`https://api.github.com/users/${username}`);
-      
+
       if (!profileResponse.ok) {
-        // If the profile data fetch is not successful, handle the error
         alert('GitHub user not found');
         return;
       }
 
       const profileData: UserProfile = await profileResponse.json();
 
-      // Fetch user repositories
-      const repoResponse = await fetch(`https://api.github.com/users/${username}/repos`);
-
-      if (!repoResponse.ok) {
-        // If the repository data fetch is not successful, handle the error
-        alert('Error fetching repositories');
-        return;
-      }
-
-      const repoData: Repository[] = await repoResponse.json();
-
-      // Combine profile and repository data
-      setProfileData({ profile: enrichProfileData(profileData), repositories: repoData });
+      setProfileData({ profile: enrichProfileData(profileData) });
     } catch (error) {
       console.error('Error fetching GitHub data:', error);
     }
+  };
+
+  const enrichProfileData = (profileData: UserProfile): UserProfile => {
+    return {
+      ...profileData,
+      joinDate: new Date(profileData.created_at).toLocaleDateString(),
+      pseudoName: profileData.login,
+    };
   };
 
   return (
@@ -222,33 +222,47 @@ const App: React.FC = () => {
       {profileData.profile && (
         <ProfileInfo>
           <Head>
-          <Names>
-       <p><Name>{profileData.profile.name}</Name></p>
-          <h2>
-            <ProfileLink href={`https://github.com/${profileData.profile.login}`} target="_blank" rel="noopener noreferrer">
-              @{profileData.profile.pseudoName}
-            </ProfileLink>
-          </h2>
-       </Names>
-          <p>Join Date: {profileData.profile.joinDate}</p>
+          {profileData.profile.avatar_url && (
+            <img
+              src={profileData.profile.avatar_url}
+              alt="Profile"
+              style={{ borderRadius: '50%', width: '117px', height: '117px', marginBottom: '10px' }}
+            />
+          )}
+            <Names>
+              <Name>{profileData.profile.name}</Name>
+              <p>
+                <a href={`https://github.com/${profileData.profile.login}`} target="_blank" rel="noopener noreferrer">
+                  @{profileData.profile.pseudoName}
+                </a>
+              </p>
+            </Names>
+            <p>Join Date: {profileData.profile.joinDate}</p>
           </Head>
-         <ContainerForFollow>
-          <p>Repos <span>{profileData.profile.public_repos}</span></p>
-            {/* <p>Socials: {profileData.profile.socials}</p> */}
-            <p>Followers <span>{profileData.profile.followers}</span></p>
-            <p>Following <span>{profileData.profile.following}</span></p>
-         </ContainerForFollow>
-
-          <h3>Repositories:</h3>
-          <ul>
-            {profileData.repositories?.map((repo) => (
-              <li key={repo.id}>{repo.name}</li>
+          <LeftForFollow>
+            <ContainerForFollow>
+            <p>Repos <span>{profileData.profile.public_repos}</span></p>
+              <p>Followers <span>{profileData.profile.followers}</span></p>
+              <p>Following <span>{profileData.profile.following}</span></p>
+            </ContainerForFollow>
+            <SocialLinks>
+            {profileData.profile.socials?.map((social, index) => (
+              <a href={social} key={index} target="_blank" rel="noopener noreferrer">
+                {social}
+              </a>
             ))}
-          </ul>
+          </SocialLinks>
+          {/* New fields */}
+          <p>Location: {profileData.profile.location}</p>
+          <p>URL: {profileData.profile.url}</p>
+          <p>Building Place: {profileData.profile.buildingPlace}</p>
+          </LeftForFollow>
+          
         </ProfileInfo>
       )}
     </Container>
   );
 };
+
 
 export default App;
