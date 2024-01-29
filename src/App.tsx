@@ -1,5 +1,5 @@
 // App.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 
 // Define types for user profile and repository
@@ -34,8 +34,6 @@ const Input = styled.input`
   border: none;
   height: 70px;
   border-radius: 15px;
-  background: #FEFEFE;
-  border: 1px solid #E0E0E0;
   margin-bottom: 10px;
   width: 730px;
   padding-left: 20px;
@@ -45,6 +43,9 @@ const Input = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: 25px; /* 138.889% */
+  border-radius: 15px;
+background: #FEFEFE;
+box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.20);
 `;
 
 const Button = styled.button`
@@ -64,15 +65,26 @@ const Button = styled.button`
 `;
 
 const ProfileInfo = styled.div`
-width: 730px;
+width: auto;
 height: 420px;
-  margin-top: 20px;
+padding: 48px;
+margin-top: 20px;
+border-radius: 15px;
+background: #FEFEFE;
+box-shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.20);
+
 `;
 
 const ProfileLink = styled.a`
   cursor: pointer;
-  color: #0366d6;
-  text-decoration: underline;
+  text-decoration: none;
+  color: #0079FF;
+font-family: "Space Mono";
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin: 0;
 `;
 
 const ContainerForFollow = styled.div`
@@ -106,6 +118,7 @@ text-transform: uppercase;
 `;
 
 const Name = styled.p`
+margin: 0;
 color: #2B3442;
 font-family: "Space Mono";
 font-size: 26px;
@@ -119,6 +132,22 @@ const Names = styled.div`
 display: flex;
 flex-direction: column;
 `;
+
+const Head = styled.div` 
+display: flex;
+align-items: center;
+justify-content: space-between;
+& p {
+  margin: 0;
+  color: #4B6A9B;
+font-family: "Space Mono";
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+`;
+
 
 
 // Function to enrich profile data with additional properties
@@ -192,20 +221,22 @@ const App: React.FC = () => {
 
       {profileData.profile && (
         <ProfileInfo>
-       <Names>
+          <Head>
+          <Names>
        <p><Name>{profileData.profile.name}</Name></p>
           <h2>
             <ProfileLink href={`https://github.com/${profileData.profile.login}`} target="_blank" rel="noopener noreferrer">
-              {profileData.profile.pseudoName}
+              @{profileData.profile.pseudoName}
             </ProfileLink>
           </h2>
        </Names>
           <p>Join Date: {profileData.profile.joinDate}</p>
+          </Head>
          <ContainerForFollow>
-          <p>Public Repositories: <span>{profileData.profile.following}</span></p>
+          <p>Repos <span>{profileData.profile.public_repos}</span></p>
             {/* <p>Socials: {profileData.profile.socials}</p> */}
-            <p>Followers: <span>{profileData.profile.followers}</span></p>
-            <p>Following: <span>{profileData.profile.following}</span></p>
+            <p>Followers <span>{profileData.profile.followers}</span></p>
+            <p>Following <span>{profileData.profile.following}</span></p>
          </ContainerForFollow>
 
           <h3>Repositories:</h3>
