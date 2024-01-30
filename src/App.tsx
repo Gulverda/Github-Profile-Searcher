@@ -16,12 +16,14 @@ interface UserProfile {
   location: string; // Added location
   url: string; // Added URL
   buildingPlace: string; // Added buildingPlace
+  bio: string;
 }
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 20px;
 `;
 
@@ -31,7 +33,7 @@ const Input = styled.input`
   height: 70px;
   border-radius: 15px;
   margin-bottom: 10px;
-  width: 730px;
+  width: 634px;
   padding-left: 48px;
   padding-right: 48px;
   color: #4B6A9B;
@@ -62,7 +64,7 @@ const Button = styled.button`
 `;
 
 const ProfileInfo = styled.div`
-  width: 730px;
+  width: 634px;
   height: 420px;
   padding: 48px;
   margin-top: 20px;
@@ -85,7 +87,7 @@ const ProfileInfo = styled.div`
 // `;
 
 const ContainerForFollow = styled.div`
-  width: 480px;
+  width: 355px;
   height: 85px;
   padding-left: 32px;
   padding-right: 83px;
@@ -93,7 +95,7 @@ const ContainerForFollow = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 
   & p {
     display: grid;
@@ -203,8 +205,14 @@ const App: React.FC = () => {
       ...profileData,
       joinDate: new Date(profileData.created_at).toLocaleDateString(),
       pseudoName: profileData.login,
+      // Add the following line to include bio field
+      bio: profileData.bio || 'No bio available',
+      location: profileData.location || 'No location available',
+      url: profileData.url || 'No URL available',
+      buildingPlace: profileData.buildingPlace || 'No building place available'
     };
   };
+
 
   return (
     <Container>
@@ -222,13 +230,13 @@ const App: React.FC = () => {
       {profileData.profile && (
         <ProfileInfo>
           <Head>
-          {profileData.profile.avatar_url && (
-            <img
-              src={profileData.profile.avatar_url}
-              alt="Profile"
-              style={{ borderRadius: '50%', width: '117px', height: '117px', marginBottom: '10px' }}
-            />
-          )}
+            {profileData.profile.avatar_url && (
+              <img
+                src={profileData.profile.avatar_url}
+                alt="Profile"
+                style={{ borderRadius: '50%', width: '117px', height: '117px', marginBottom: '10px' }}
+              />
+            )}
             <Names>
               <Name>{profileData.profile.name}</Name>
               <p>
@@ -241,23 +249,24 @@ const App: React.FC = () => {
           </Head>
           <LeftForFollow>
             <ContainerForFollow>
-            <p>Repos <span>{profileData.profile.public_repos}</span></p>
+              <p>Repos <span>{profileData.profile.public_repos}</span></p>
               <p>Followers <span>{profileData.profile.followers}</span></p>
               <p>Following <span>{profileData.profile.following}</span></p>
             </ContainerForFollow>
             <SocialLinks>
-            {profileData.profile.socials?.map((social, index) => (
-              <a href={social} key={index} target="_blank" rel="noopener noreferrer">
-                {social}
-              </a>
-            ))}
-          </SocialLinks>
-          {/* New fields */}
-          <p>Location: {profileData.profile.location}</p>
-          <p>URL: {profileData.profile.url}</p>
-          <p>Building Place: {profileData.profile.buildingPlace}</p>
+              {profileData.profile.socials?.map((social, index) => (
+                <a href={social} key={index} target="_blank" rel="noopener noreferrer">
+                  {social}
+                </a>
+              ))}
+            </SocialLinks>
+            {/* New fields */}
+            <p>Bio: {profileData.profile.bio}</p>
+            <p>Location: {profileData.profile.location}</p>
+            <p>URL: {profileData.profile.url}</p>
+            <p>Building Place: {profileData.profile.buildingPlace}</p>
           </LeftForFollow>
-          
+
         </ProfileInfo>
       )}
     </Container>
