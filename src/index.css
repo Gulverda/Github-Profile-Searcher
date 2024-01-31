@@ -8,12 +8,30 @@ body{
   background: #F6F8FF;
 }
 
+.input{
+  margin-top: 32px;
+}
 
 h1{
+  color: #222731;
+  font-family: "Space Mono";
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+input::placeholder{
   color: #4B6A9B;
 font-family: "Space Mono";
 font-size: 18px;
 font-style: normal;
 font-weight: 400;
 line-height: 25px; /* 138.889% */
+}
+
+.input svg{
+  position: absolute;
+  margin-left: 32px;
+  margin-top: 22px;
 }
