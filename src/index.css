@@ -8,11 +8,6 @@ body{
   background: #F6F8FF;
 }
 
-.input{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 h1{
   color: #4B6A9B;
