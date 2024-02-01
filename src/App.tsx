@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "./index.css";
+import NightMode from "./NightMode.tsx";
 
 interface UserProfile {
   login: string;
@@ -249,9 +250,16 @@ const Join = styled.p`
   line-height: normal;
 `;
 
+
+
 // ... (previous imports and styled components)
 
 const App: React.FC = () => {
+  const [nightMode, setNightMode] = useState(false);
+  const toggleNightMode = () => {
+    setNightMode((prevNightMode) => !prevNightMode);
+  };
+
   const [username, setUsername] = useState("");
   const [profileData, setProfileData] = useState<{
     profile: UserProfile | null;
@@ -307,12 +315,13 @@ const App: React.FC = () => {
       buildingPlace: profileData.buildingPlace || "No available",
     };
   };
-
   return (
     <Container>
       <ToggleName>
         <h1>devfinder</h1>
         <h2>djdj</h2>
+        <NightMode nightMode={nightMode} toggleNightMode={toggleNightMode} />
+
       </ToggleName>
       <div className="input">
         <svg
