@@ -1,6 +1,6 @@
 // App.tsx
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 import "./index.css";
 import NightMode from "./NightMode.tsx";
 
@@ -22,14 +22,22 @@ interface UserProfile {
   twitter: string;
 }
 
-const Container = styled.div`
-  background: #f6f8ff;
+const GlobalStyle = createGlobalStyle<{ nightMode: boolean }>`
+  body {
+    background: ${(props) => (props.nightMode ? "#0e0e10" : "#f6f8ff")};
+    color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+  }
+`;
+
+const Container = styled.div<{ nightMode: boolean }>`
+  background: ${(props) => (props.nightMode ? "#0e0e10" : "#f6f8ff")};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 20px;
 `;
+
 
 const Input = styled.input`
   outline: none;
@@ -316,7 +324,8 @@ const App: React.FC = () => {
     };
   };
   return (
-    <Container>
+    <Container nightMode={nightMode}>
+      <GlobalStyle nightMode={nightMode} />
       <ToggleName>
         <h1>devfinder</h1>
         <h2>djdj</h2>
