@@ -8,7 +8,6 @@ interface NightModeProps {
 }
 
 const NightModeToggle = styled.div`
-  position: fixed;
   top: 20px;
   right: 20px;
   cursor: pointer;

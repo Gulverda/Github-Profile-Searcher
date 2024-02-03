@@ -16,11 +16,30 @@ interface UserProfile {
   following: number;
   avatar_url: string;
   location: string;
-  url: string;
   buildingPlace: string;
   bio: string;
+  blog: string;
   twitter: string;
 }
+
+const defaultUserProfile: UserProfile = {
+  login: "octocat",
+  name: "The Octocat",
+  public_repos: 8,
+  created_at: "2011-01-25",
+  joinDate: "",
+  pseudoName: "octocat",
+  socials: [],
+  followers: 3938,
+  following: 9,
+  avatar_url: "https://github.com/octocat.png",  // Octocat avatar URL
+  location: "San Francisco",
+  buildingPlace: "@github",
+  bio: "This profile has no bio",
+  blog: "https://github.blog",
+  twitter: "Not Available",
+};
+
 
 const GlobalStyle = createGlobalStyle<{ nightMode: boolean }>`
   body {
@@ -204,7 +223,7 @@ const Socials = styled.div`
     line-height: normal;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     gap: 20px;
   }
 `;
@@ -224,6 +243,7 @@ const UserLink = styled.a`
   font-weight: 400;
   line-height: normal;
 `;
+
 const ToggleName = styled.div`
   display: flex;
   justify-content: space-between;
@@ -234,15 +254,6 @@ const ToggleName = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    color: #2b3442;
-  }
-  & h2 {
-    font-family: "Space Mono";
-    font-size: 26px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: uppercase;
     color: #2b3442;
   }
 `;
@@ -277,15 +288,23 @@ const App: React.FC = () => {
   const [websiteInfo, setWebsiteInfo] = useState<string | null>("");
 
   useEffect(() => {
+    setProfileData({ profile: enrichProfileData(defaultUserProfile) });
+
+  }, []);
+  
+  useEffect(() => {
     if (profileData.profile) {
-      if (!profileData.profile.url || profileData.profile.url.length < 1) {
+      if (!profileData.profile.blog || profileData.profile.blog.length < 1) {
         setWebsiteInfo("Not Available");
       } else {
-        const userWebsiteShort = profileData.profile.url.split("/")[2];
-        setWebsiteInfo(userWebsiteShort);
+        const blogInfo = profileData.profile.blog
+          ? `${profileData.profile.blog}`
+          : "Not Available";
+        setWebsiteInfo(`${blogInfo}`);
       }
     }
   }, [profileData]);
+  
 
   const handleSearch = async () => {
     try {
@@ -314,13 +333,18 @@ const App: React.FC = () => {
   const enrichProfileData = (profileData: UserProfile): UserProfile => {
     return {
       ...profileData,
-      joinDate: new Date(profileData.created_at).toLocaleDateString(),
+      joinDate: new Date(profileData.created_at).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
+
       pseudoName: profileData.login,
       bio: profileData.bio || "This profile has no bio",
-      twitter: profileData.twitter || "No available",
-      location: profileData.location || "No available",
-      url: profileData.url || "No available",
-      buildingPlace: profileData.buildingPlace || "No available",
+      twitter: profileData.twitter || "Not available",
+      location: profileData.location || "Not available",
+      blog: profileData.blog || "Not available",
+      buildingPlace: profileData.buildingPlace || "Not available",
     };
   };
   return (
@@ -328,9 +352,7 @@ const App: React.FC = () => {
       <GlobalStyle nightMode={nightMode} />
       <ToggleName>
         <h1>devfinder</h1>
-        <h2>djdj</h2>
         <NightMode nightMode={nightMode} toggleNightMode={toggleNightMode} />
-
       </ToggleName>
       <div className="input">
         <svg
@@ -382,7 +404,7 @@ const App: React.FC = () => {
               </UserLink>
               <Bio>{profileData.profile.bio}</Bio>
             </Names>
-            <Join>Joined: {profileData.profile.joinDate}</Join>
+            <Join>Joined {profileData.profile.joinDate}</Join>
           </Head>
           <LeftForFollow>
             <ContainerForFollow>
@@ -442,8 +464,8 @@ const App: React.FC = () => {
                 </svg>
                 {profileData.profile.twitter}
               </p>
-              <UserWebsite className={websiteInfo ? "" : "opacity-50"}>
-                <p>
+              <UserWebsite >
+                <p className={websiteInfo ? "Not available" : "opacity-50"}>
                   <svg
                     width="20"
                     height="20"
@@ -460,7 +482,7 @@ const App: React.FC = () => {
                       fill="#4B6A9B"
                     />
                   </svg>
-                  {websiteInfo ? websiteInfo : "No available"}
+                  {websiteInfo ? websiteInfo : "Not available"}
                 </p>
               </UserWebsite>
               <p>
