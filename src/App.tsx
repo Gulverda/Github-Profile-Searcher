@@ -56,7 +56,6 @@ const Container = styled.div<{ nightMode: boolean }>`
   align-items: center;
   height: 100vh;
   justify-content: center;
-  margin: 20px;
 `;
 
 const InputCont = styled.div`
@@ -91,6 +90,11 @@ const Input = styled.input<{ nightMode: boolean }>`
   &::placeholder {
     color: ${(props) => (props.nightMode ? "#fff" : "#4b6a9b")};
   }
+
+  @media screen and (max-width: 768px) {
+    width: 573px;
+  }
+
 `;
 
 
@@ -123,6 +127,10 @@ const ProfileInfo = styled.div<{ nightMode: boolean }>`
   border-radius: 15px;
   background: ${(props) => (props.nightMode ? "#1E2A47" : "#FEFEFE")};
   box-shadow: ${(props) => (props.nightMode ? "0px 0px 0px 0px rgba(70, 96, 187, 0.2)" : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)")};
+
+  @media screen and (max-width: 768px) {
+    width: 573px;
+  }
 `;
 
 const StyledSVG = styled.svg<{ nightMode: boolean }>`
@@ -172,6 +180,7 @@ const Name = styled.p<{ nightMode: boolean }>`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  width: 200px;
 `;
 
 const Names = styled.div`
@@ -277,6 +286,10 @@ const ToggleName = styled.div <{ nightMode: boolean }>`
     line-height: normal;
     color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
   }
+
+  @media screen and (max-width: 768px) {
+    width: 573px;
+  }
 `;
 
 const Join = styled.p<{ nightMode: boolean }>`
@@ -290,7 +303,16 @@ const Join = styled.p<{ nightMode: boolean }>`
   line-height: normal;
 `;
 
+const Left = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-left: 24px;
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+
+`;
 
 // ... (previous imports and styled components)
 
@@ -415,6 +437,7 @@ const App: React.FC = () => {
                 }}
               />
             )}
+            <Left>
             <Names>
               <Name nightMode={nightMode}>{profileData.profile.name}</Name>
               <UserLink
@@ -427,6 +450,7 @@ const App: React.FC = () => {
               <Bio nightMode={nightMode}>{profileData.profile.bio}</Bio>
             </Names>
             <Join nightMode={nightMode}>Joined {profileData.profile.joinDate}</Join>
+            </Left>
           </Head>
           <LeftForFollow>
             <ContainerForFollow nightMode={nightMode}>
