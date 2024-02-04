@@ -95,6 +95,10 @@ const Input = styled.input<{ nightMode: boolean }>`
     width: 573px;
   }
 
+  @media screen and (max-width: 575px) {
+    width: 327px;
+  }
+
 `;
 
 
@@ -131,6 +135,10 @@ const ProfileInfo = styled.div<{ nightMode: boolean }>`
   @media screen and (max-width: 768px) {
     width: 573px;
   }
+
+  @media screen and (max-width: 575px) {
+    width: 327px;
+  }
 `;
 
 const StyledSVG = styled.svg<{ nightMode: boolean }>`
@@ -140,7 +148,6 @@ const StyledSVG = styled.svg<{ nightMode: boolean }>`
 const ContainerForFollow = styled.div<{ nightMode: boolean }>`
   width: 480px;
   height: 85px;
-  margin-top: 32px;
   padding-left: 32px;
   padding-right: 83px;
   background: ${(props) => (props.nightMode ? "#141D2F" : "#F6F8FF")};
@@ -169,6 +176,27 @@ const ContainerForFollow = styled.div<{ nightMode: boolean }>`
       text-transform: uppercase;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 575px) {
+    padding: 15px 18px;
+    display: flex;
+    justify-content: space-between;
+    width: 280px ;
+
+    & p {
+      font-size: 11px;
+      & span {
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+  }
 `;
 
 const Name = styled.p<{ nightMode: boolean }>`
@@ -181,23 +209,37 @@ const Name = styled.p<{ nightMode: boolean }>`
   font-weight: 700;
   line-height: normal;
   width: 200px;
+
+  @media screen and (max-width: 575px) {
+    font-size: 16px;
+    width: 150px;
+  }
 `;
 
 const Names = styled.div`
   display: flex;
   flex-direction: column;
+  width: 300px;
+
+  @media screen and (max-width: 575px) {
+    width: 200px;
+  }
 `;
 
 const Bio = styled.p<{ nightMode: boolean }>`
-  margin: 0;
-  margin-top: 20px;
+  margin-top: 30px;
   color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
   font-family: "Space Mono";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  position: relative;
   width: 300px;
+
+  @media screen and (max-width: 575px) {
+    display: none;
+  }
 `;
 
 const Head = styled.div`
@@ -210,6 +252,20 @@ const Head = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  & img {
+    width: 117px;
+    height: 117px;
+  }
+
+  @media screen and (max-width: 575px) {
+    font-size: 13px;
+
+    & img{
+      width: 80px;
+      height: 80px;
+    }
+  }
 `;
 
 const SocialLinks = styled.div`
@@ -225,6 +281,10 @@ const SocialLinks = styled.div`
     font-weight: 400;
     line-height: normal;
   }
+
+  @media screen and (max-width: 575px) {
+    display: none;
+  }
 `;
 
 const LeftForFollow = styled.div`
@@ -232,6 +292,17 @@ const LeftForFollow = styled.div`
   width: 100%;
   justify-content: flex-end;
   flex-direction: column;
+  margin-top: 30px;
+
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    justify-content: center; 
+  }
+
+  @media screen and (max-width: 575px) {
+    width: 100%;
+    justify-content: center; 
+  }
 `;
 
 const Socials = styled.div<{ nightMode: boolean }>`
@@ -254,6 +325,16 @@ const Socials = styled.div<{ nightMode: boolean }>`
     align-items: center;
     justify-content: left;
     gap: 20px;
+  }
+
+  @media screen and (max-width: 575px) {
+    grid-template-columns: 1fr;
+
+    & p {
+      font-size: 13px;
+      gap: 10px;
+      margin-top: -10px;
+    }
   }
 `;
 
@@ -290,10 +371,13 @@ const ToggleName = styled.div <{ nightMode: boolean }>`
   @media screen and (max-width: 768px) {
     width: 573px;
   }
+
+  @media screen and (max-width: 575px) {
+    width: 327px;
+  }
 `;
 
 const Join = styled.p<{ nightMode: boolean }>`
-  margin: 0;
   margin-top: 10px;
   color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
   font-family: "Space Mono";
@@ -301,6 +385,14 @@ const Join = styled.p<{ nightMode: boolean }>`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 30px;
+  }
+
+  @media screen and (max-width: 575px) {
+    font-size: 13px;
+  }
 `;
 
 const Left = styled.div`
@@ -431,8 +523,6 @@ const App: React.FC = () => {
                 alt="Profile"
                 style={{
                   borderRadius: "50%",
-                  width: "117px",
-                  height: "117px",
                   marginBottom: "10px",
                 }}
               />
@@ -451,7 +541,9 @@ const App: React.FC = () => {
             </Names>
             <Join nightMode={nightMode}>Joined {profileData.profile.joinDate}</Join>
             </Left>
+
           </Head>
+
           <LeftForFollow>
             <ContainerForFollow nightMode={nightMode}>
               <p>
