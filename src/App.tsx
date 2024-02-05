@@ -45,7 +45,7 @@ const GlobalStyle = createGlobalStyle<{ nightMode: boolean }>`
   body {
     height: 100vh;
     background: ${(props) => (props.nightMode ? "#141D2F" : "#f6f8ff")};
-    color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+    color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
   }
 `;
 
@@ -59,6 +59,7 @@ const Container = styled.div<{ nightMode: boolean }>`
 `;
 
 const InputCont = styled.div`
+position: relative;
   margin-top: 32px;
 
   & svg {
@@ -117,6 +118,15 @@ const Input = styled.input<{ nightMode: boolean }>`
 
 `;
 
+
+const NotAvailable = styled.p`
+  font-family: "Space Mono";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: red;
+`;
 
 const Button = styled.button`
   position: absolute;
@@ -183,7 +193,7 @@ const ContainerForFollow = styled.div<{ nightMode: boolean }>`
   & p {
     display: grid;
     flex-direction: column;
-    color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+    color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
     font-family: "Space Mono";
     font-size: 13px;
     font-style: normal;
@@ -252,7 +262,7 @@ const Names = styled.div`
 
 const Bio = styled.p<{ nightMode: boolean }>`
   margin-top: 30px;
-  color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+  color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
   font-family: "Space Mono";
   font-size: 16px;
   font-style: normal;
@@ -339,7 +349,7 @@ const Socials = styled.div<{ nightMode: boolean }>`
   margin-top: 37px;
   gap: 30px;
   & p {
-    color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+    color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
     font-family: "Space Mono";
     font-size: 15px;
     font-style: normal;
@@ -403,7 +413,7 @@ const ToggleName = styled.div <{ nightMode: boolean }>`
 
 const Join = styled.p<{ nightMode: boolean }>`
   margin-top: 10px;
-  color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+  color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
   font-family: "Space Mono";
   font-size: 15px;
   font-style: normal;
@@ -430,6 +440,24 @@ const Left = styled.div`
 
 `;
 
+const AlertError = styled.div`
+  position: absolute;
+  font-family: "Space Mono";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  color: red;
+  top: 35px;
+  transform: translate(-50%, -50%);
+  right: 100px;
+
+  @media screen and (max-width: 575px) {
+    font-size: 13px;
+    top: 30px;
+    right: 65px;
+  }
+`;
 // ... (previous imports and styled components)
 
 const App: React.FC = () => {
@@ -439,6 +467,8 @@ const App: React.FC = () => {
   };
 
   const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
+  const [opacity, setOpacity] = useState(1); // 1 is the default opacity
   const [profileData, setProfileData] = useState<{
     profile: UserProfile | null;
   }>({
@@ -455,14 +485,17 @@ const App: React.FC = () => {
     if (profileData.profile) {
       if (!profileData.profile.blog || profileData.profile.blog.length < 1) {
         setWebsiteInfo("Not Available");
+        setOpacity(0.5);
       } else {
         const blogInfo = profileData.profile.blog
           ? `${profileData.profile.blog}`
           : "Not Available";
-        setWebsiteInfo(`${blogInfo}`);
+        setWebsiteInfo(blogInfo);
+        setOpacity(1); // You may set the desired opacity for the else case
       }
     }
   }, [profileData]);
+  
 
 
   const handleSearch = async () => {
@@ -477,17 +510,21 @@ const App: React.FC = () => {
       );
 
       if (!profileResponse.ok) {
-        alert("GitHub user not found");
+        setError("No Result");
         return;
       }
 
-      const profileData: UserProfile = await profileResponse.json();
+      const profileData = await profileResponse.json();
 
       setProfileData({ profile: enrichProfileData(profileData) });
+      setError(""); // Clear any previous errors
     } catch (error) {
       console.error("Error fetching GitHub data:", error);
+      setError("Error fetching GitHub data");
     }
   };
+
+
 
   const enrichProfileData = (profileData: UserProfile): UserProfile => {
     return {
@@ -533,7 +570,9 @@ const App: React.FC = () => {
           onChange={(e) => setUsername(e.target.value)}
           nightMode={nightMode}
         />
+     
         <Button onClick={handleSearch}>Search</Button>
+        <AlertError>{error && <p style={{ color: "red" }}>{error}</p>}</AlertError>
       </InputCont>
 
       {profileData.profile && (
@@ -625,7 +664,7 @@ const App: React.FC = () => {
                 {profileData.profile.twitter}
               </p>
               <UserWebsite >
-                <p className={websiteInfo ? "Not available" : "opacity-50"}>
+              <p className={websiteInfo ? "" : "not-available"} style={{ opacity: websiteInfo ? 1 : 0.5 }}>
                   <StyledSVG
                     nightMode={nightMode}
                     width="20"
