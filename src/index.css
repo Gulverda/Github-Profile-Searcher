@@ -4,6 +4,32 @@
   box-sizing: border-box;
 }
 
-.not-available {
+
+/* YourComponentStyles.css */
+
+.linkContainer {
+  text-decoration: none;
+  color: #4B6A9B;
+}
+
+.link {
+  color: #4B6A9B;
   opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.link.available {
+  opacity: 1;
+  color: #4B6A9B;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.linkContainer:hover .link{
+  text-decoration: underline;
+}
+
+.link.nightMode {
+  color: #fff;
 }

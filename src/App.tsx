@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import "./index.css";
-import NightMode from "./NightMode.tsx";
+import NightMode from "./night/NightMode.tsx";
 
 interface UserProfile {
   login: string;
@@ -16,10 +16,10 @@ interface UserProfile {
   following: number;
   avatar_url: string;
   location: string;
-  buildingPlace: string;
+  company: string;
   bio: string;
   blog: string;
-  twitter: string;
+  twitter_username: string;
 }
 
 const defaultUserProfile: UserProfile = {
@@ -34,10 +34,10 @@ const defaultUserProfile: UserProfile = {
   following: 9,
   avatar_url: "https://github.com/octocat.png",  // Octocat avatar URL
   location: "San Francisco",
-  buildingPlace: "@github",
+  company: "@github",
   bio: "This profile has no bio",
   blog: "https://github.blog",
-  twitter: "Not Available",
+  twitter_username: "Not Available",
 };
 
 
@@ -116,16 +116,6 @@ const Input = styled.input<{ nightMode: boolean }>`
     padding-left: 46px;
   }
 
-`;
-
-
-const NotAvailable = styled.p`
-  font-family: "Space Mono";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  color: red;
 `;
 
 const Button = styled.button`
@@ -388,6 +378,14 @@ const UserLink = styled.a`
   line-height: normal;
 `;
 
+const UserLinkForTwitter = styled.a`
+  font-family: "Space Mono";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
 const ToggleName = styled.div <{ nightMode: boolean }>`
   display: flex;
   justify-content: space-between;
@@ -458,6 +456,8 @@ const AlertError = styled.div`
     right: 65px;
   }
 `;
+
+
 // ... (previous imports and styled components)
 
 const App: React.FC = () => {
@@ -468,7 +468,6 @@ const App: React.FC = () => {
 
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
-  const [opacity, setOpacity] = useState(1); // 1 is the default opacity
   const [profileData, setProfileData] = useState<{
     profile: UserProfile | null;
   }>({
@@ -485,17 +484,15 @@ const App: React.FC = () => {
     if (profileData.profile) {
       if (!profileData.profile.blog || profileData.profile.blog.length < 1) {
         setWebsiteInfo("Not Available");
-        setOpacity(0.5);
       } else {
         const blogInfo = profileData.profile.blog
           ? `${profileData.profile.blog}`
           : "Not Available";
         setWebsiteInfo(blogInfo);
-        setOpacity(1); // You may set the desired opacity for the else case
       }
     }
   }, [profileData]);
-  
+
 
 
   const handleSearch = async () => {
@@ -524,25 +521,28 @@ const App: React.FC = () => {
     }
   };
 
-
-
   const enrichProfileData = (profileData: UserProfile): UserProfile => {
-    return {
+
+    const enrichedData: UserProfile = {
       ...profileData,
       joinDate: new Date(profileData.created_at).toLocaleDateString("en-US", {
         year: "numeric",
         month: "short",
         day: "numeric",
       }),
-
       pseudoName: profileData.login,
       bio: profileData.bio || "This profile has no bio",
-      twitter: profileData.twitter || "Not available",
       location: profileData.location || "Not available",
       blog: profileData.blog || "Not available",
-      buildingPlace: profileData.buildingPlace || "Not available",
+      company: profileData.company || "Not available",
     };
+
+    return enrichedData;
   };
+
+
+
+
   return (
     <Container nightMode={nightMode}>
       <GlobalStyle nightMode={nightMode} />
@@ -570,7 +570,7 @@ const App: React.FC = () => {
           onChange={(e) => setUsername(e.target.value)}
           nightMode={nightMode}
         />
-     
+
         <Button onClick={handleSearch}>Search</Button>
         <AlertError>{error && <p style={{ color: "red" }}>{error}</p>}</AlertError>
       </InputCont>
@@ -589,18 +589,18 @@ const App: React.FC = () => {
               />
             )}
             <Left>
-            <Names>
-              <Name nightMode={nightMode}>{profileData.profile.name}</Name>
-              <UserLink
-                href={`https://github.com/${profileData.profile.login}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                @{profileData.profile.pseudoName}
-              </UserLink>
-              <Bio nightMode={nightMode}>{profileData.profile.bio}</Bio>
-            </Names>
-            <Join nightMode={nightMode}>Joined {profileData.profile.joinDate}</Join>
+              <Names>
+                <Name nightMode={nightMode}>{profileData.profile.name}</Name>
+                <UserLink
+                  href={`https://github.com/${profileData.profile.login}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  @{profileData.profile.pseudoName}
+                </UserLink>
+                <Bio nightMode={nightMode}>{profileData.profile.bio}</Bio>
+              </Names>
+              <Join nightMode={nightMode}>Joined {profileData.profile.joinDate}</Join>
             </Left>
 
           </Head>
@@ -656,15 +656,31 @@ const App: React.FC = () => {
                   viewBox="0 0 20 18"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  className={`linkContainer ${profileData.profile.twitter_username ? 'available' : ''}`}
+
                 >
                   <path
                     d="M20 2.79875C19.2562 3.125 18.4637 3.34125 17.6375 3.44625C18.4875 2.93875 19.1362 2.14125 19.4412 1.18C18.6487 1.6525 17.7737 1.98625 16.8412 2.1725C16.0887 1.37125 15.0162 0.875 13.8462 0.875C11.5762 0.875 9.74874 2.7175 9.74874 4.97625C9.74874 5.30125 9.77624 5.61375 9.84374 5.91124C6.43499 5.745 3.41875 4.11125 1.3925 1.6225C1.03875 2.23625 0.831249 2.93875 0.831249 3.695C0.831249 5.115 1.5625 6.37374 2.6525 7.10249C1.99375 7.08999 1.3475 6.89874 0.799999 6.59749C0.799999 6.60999 0.799999 6.62624 0.799999 6.64249C0.799999 8.63499 2.22125 10.29 4.085 10.6712C3.75125 10.7625 3.3875 10.8062 3.01 10.8062C2.7475 10.8062 2.4825 10.7912 2.23375 10.7362C2.765 12.36 4.2725 13.5537 6.06499 13.5925C4.67 14.6837 2.89875 15.3412 0.981249 15.3412C0.644999 15.3412 0.3225 15.3262 0 15.285C1.81625 16.4562 3.96875 17.125 6.28999 17.125C13.835 17.125 17.96 10.875 17.96 5.4575C17.96 5.27625 17.9537 5.10125 17.945 4.9275C18.7587 4.35 19.4425 3.62875 20 2.79875Z"
                   />
                 </StyledSVG>
-                {profileData.profile.twitter}
+                <UserLinkForTwitter
+  href={profileData.profile.twitter_username ? `https://twitter.com/${profileData.profile.twitter_username}` : '#'}
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`linkContainer ${profileData.profile.twitter_username ? 'available' : ''}`}
+>
+  {profileData.profile.twitter_username ? (
+    <span className={`link ${nightMode ? 'nightMode' : ''} ${profileData.profile.twitter_username ? 'available' : ''}`}>
+      {profileData.profile.twitter_username}
+    </span>
+  ) : (
+    <span className={`link ${nightMode ? 'nightMode' : ''}`}>Not available</span>
+  )}
+</UserLinkForTwitter>
+
               </p>
               <UserWebsite >
-              <p className={websiteInfo ? "" : "not-available"} style={{ opacity: websiteInfo ? 1 : 0.5 }}>
+                <p>
                   <StyledSVG
                     nightMode={nightMode}
                     width="20"
@@ -680,7 +696,7 @@ const App: React.FC = () => {
                       d="M13.439 13.7495C13.4389 13.7496 13.4388 13.7497 13.4388 13.7499C13.4409 13.749 13.4428 13.7482 13.4449 13.7473C14.1036 12.5426 14.2333 11.161 13.9246 9.81419L13.9232 9.81564L13.9217 9.81498C13.6285 8.61541 12.8241 7.42424 11.7316 6.69084C11.6376 6.62775 11.4875 6.63506 11.3995 6.70623C10.8461 7.15369 10.3044 7.72748 9.94697 8.4597C9.89083 8.57466 9.93287 8.71275 10.0435 8.77697C10.4583 9.01779 10.8329 9.37037 11.0837 9.83845L11.0841 9.83818C11.2796 10.1688 11.4722 10.7963 11.3474 11.4704C11.3474 11.4704 11.3472 11.4704 11.3472 11.4704C11.2308 12.3642 10.3282 13.184 9.61068 13.9228L9.61103 13.9231C9.06486 14.4817 7.67646 15.897 7.12052 16.465C6.12267 17.4834 4.47299 17.5003 3.45455 16.5024C2.43612 15.5046 2.41928 13.8549 3.41713 12.8365L4.93834 11.2721C5.00728 11.2012 5.03072 11.0981 5.00006 11.0041C4.66228 9.96775 4.56975 8.57201 4.78295 7.49439C4.78889 7.46435 4.75193 7.44517 4.73049 7.46705L1.551 10.7122C-0.53228 12.8384 -0.514624 16.3003 1.5903 18.4052C3.71647 20.4884 7.16049 20.4532 9.24369 18.327C9.9674 17.5175 13.0654 14.6492 13.439 13.7495Z"
                     />
                   </StyledSVG>
-                  {websiteInfo ? websiteInfo : "Not available"}
+                    {websiteInfo}
                 </p>
               </UserWebsite>
               <p>
@@ -703,7 +719,7 @@ const App: React.FC = () => {
                     d="M12.9166 7.79248L18.85 9.03498C19.5308 9.18581 20 9.77165 20 10.46V18.5416C20 19.3458 19.3458 20 18.5416 20H12.9166V7.79248ZM15.625 17.5H16.875C17.22 17.5 17.5 17.22 17.5 16.875C17.5 16.53 17.22 16.25 16.875 16.25H15.625C15.28 16.25 15 16.53 15 16.875C15 17.22 15.28 17.5 15.625 17.5ZM16.875 15H15.625C15.28 15 15 14.72 15 14.375C15 14.03 15.28 13.75 15.625 13.75H16.875C17.22 13.75 17.5 14.03 17.5 14.375C17.5 14.72 17.22 15 16.875 15ZM15.625 12.5H16.875C17.22 12.5 17.5 12.22 17.5 11.875C17.5 11.53 17.22 11.25 16.875 11.25H15.625C15.28 11.25 15 11.53 15 11.875C15 12.22 15.28 12.5 15.625 12.5Z"
                   />
                 </StyledSVG>
-                {profileData.profile.buildingPlace}
+                {profileData.profile.company}
               </p>
             </Socials>
           </LeftForFollow>
