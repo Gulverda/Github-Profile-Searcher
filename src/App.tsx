@@ -62,9 +62,21 @@ const InputCont = styled.div`
   margin-top: 32px;
 
   & svg {
+    width: 25px;
+    height: 24px;
     position: absolute;
     margin-left: 32px;
     margin-top: 22px;
+  }
+
+  @media screen and (max-width: 575px) {
+    
+    & svg {
+      width: 20px;
+      height: 20px;
+      margin-top: 20px;
+      margin-left: 16px;
+    }
   }
 `;
 
@@ -96,7 +108,11 @@ const Input = styled.input<{ nightMode: boolean }>`
   }
 
   @media screen and (max-width: 575px) {
+    letter-spacing: 0px;
+    height: 60px;
     width: 327px;
+    font-size: 13px;
+    padding-left: 46px;
   }
 
 `;
@@ -120,6 +136,14 @@ const Button = styled.button`
   cursor: pointer;
   &:hover {
     background-color: #60abff;
+  }
+
+  @media screen and (max-width: 575px) {
+    width: 80px;
+    margin-left: -92px;
+    margin-top: 10px;
+    font-size: 14px;
+    height: 40px;
   }
 `;
 
@@ -491,8 +515,6 @@ const App: React.FC = () => {
       </ToggleName>
       <InputCont>
         <svg
-          width="25"
-          height="24"
           viewBox="0 0 25 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -506,7 +528,7 @@ const App: React.FC = () => {
         </svg>
         <Input
           type="text"
-          placeholder="Search GitHub username..."
+          placeholder="Search GitHub username…"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           nightMode={nightMode}
