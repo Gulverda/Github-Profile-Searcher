@@ -3,11 +3,11 @@ import React from "react";
 import styled from "styled-components";
 
 interface NightModeProps {
-  nightMode: boolean;
+  nightmode: boolean;
   toggleNightMode: () => void;
 }
 
-const NightModeToggle = styled.div<{ nightMode: boolean }>`
+const NightModeToggle = styled.div<{ nightmode: boolean }>`
   display: flex;
   align-items: center;
   top: 20px;
@@ -28,14 +28,14 @@ const NightModeToggle = styled.div<{ nightMode: boolean }>`
     font-weight: 700;
     font-family: 'Space Mono', monospace;
     letter-spacing: 1px;
-    color: ${({ nightMode }) => (nightMode ? "#fff" : "#697C9A")};
+    color: ${({ nightmode }) => (nightmode ? "#fff" : "#697C9A")};
   }
 `;
 
-const NightMode: React.FC<NightModeProps> = ({ nightMode, toggleNightMode }) => {
+const NightMode: React.FC<NightModeProps> = ({ nightmode, toggleNightMode }) => {
   return (
-    <NightModeToggle nightMode={nightMode} onClick={toggleNightMode}>
-      {nightMode ? (
+    <NightModeToggle nightmode={nightmode} onClick={toggleNightMode}>
+      {nightmode ? (
         <>
         <span>LIGHT</span>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

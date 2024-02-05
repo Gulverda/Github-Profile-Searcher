@@ -41,16 +41,16 @@ const defaultUserProfile: UserProfile = {
 };
 
 
-const GlobalStyle = createGlobalStyle<{ nightMode: boolean }>`
+const GlobalStyle = createGlobalStyle<{ nightmode: boolean }>`
   body {
     height: 100vh;
-    background: ${(props) => (props.nightMode ? "#141D2F" : "#f6f8ff")};
-    color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
+    background: ${(props) => (props.nightmode ? "#141D2F" : "#f6f8ff")};
+    color: ${(props) => (props.nightmode ? "#fff" : "#4B6A9B")};
   }
 `;
 
-const Container = styled.div<{ nightMode: boolean }>`
-  background: ${(props) => (props.nightMode ? "#141D2F" : "#f6f8ff")};
+const Container = styled.div<{ nightmode: boolean }>`
+  background: ${(props) => (props.nightmode ? "#141D2F" : "#f6f8ff")};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,7 +81,7 @@ position: relative;
   }
 `;
 
-const Input = styled.input<{ nightMode: boolean }>`
+const Input = styled.input<{ nightmode: boolean }>`
   outline: none;
   border: none;
   height: 70px;
@@ -90,18 +90,18 @@ const Input = styled.input<{ nightMode: boolean }>`
   width: 730px;
   padding-left: 82px;
   padding-right: 48px;
-  color: ${(props) => (props.nightMode ? "#fff" : "#4b6a9b")};
+  color: ${(props) => (props.nightmode ? "#fff" : "#4b6a9b")};
   font-family: "Space Mono";
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: 25px;
   border-radius: 15px;
-  background: ${(props) => (props.nightMode ? "#1E2A47" : "#FEFEFE")};
-  box-shadow: ${(props) => (props.nightMode ? "0px 0px 0px 0px rgba(70, 96, 187, 0.2)" : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)")};
+  background: ${(props) => (props.nightmode ? "#1E2A47" : "#FEFEFE")};
+  box-shadow: ${(props) => (props.nightmode ? "0px 0px 0px 0px rgba(70, 96, 187, 0.2)" : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)")};
   
   &::placeholder {
-    color: ${(props) => (props.nightMode ? "#fff" : "#4b6a9b")};
+    color: ${(props) => (props.nightmode ? "#fff" : "#4b6a9b")};
   }
 
   @media screen and (max-width: 768px) {
@@ -147,14 +147,14 @@ const Button = styled.button`
   }
 `;
 
-const ProfileInfo = styled.div<{ nightMode: boolean }>`
+const ProfileInfo = styled.div<{ nightmode: boolean }>`
   width: 730px;
   height: auto;
   padding: 44px 48px 48px 48px;
   margin-top: 20px;
   border-radius: 15px;
-  background: ${(props) => (props.nightMode ? "#1E2A47" : "#FEFEFE")};
-  box-shadow: ${(props) => (props.nightMode ? "0px 0px 0px 0px rgba(70, 96, 187, 0.2)" : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)")};
+  background: ${(props) => (props.nightmode ? "#1E2A47" : "#FEFEFE")};
+  box-shadow: ${(props) => (props.nightmode ? "0px 0px 0px 0px rgba(70, 96, 187, 0.2)" : "0px 16px 30px -10px rgba(70, 96, 187, 0.2)")};
 
   @media screen and (max-width: 768px) {
     width: 573px;
@@ -165,16 +165,16 @@ const ProfileInfo = styled.div<{ nightMode: boolean }>`
   }
 `;
 
-const StyledSVG = styled.svg<{ nightMode: boolean }>`
-  fill: ${(props) => (props.nightMode ? '#fff' : '#4b6a9b')};
+const StyledSVG = styled.svg<{ nightmode: boolean }>`
+  fill: ${(props) => (props.nightmode ? '#fff' : '#4b6a9b')};
 `;
 
-const ContainerForFollow = styled.div<{ nightMode: boolean }>`
+const ContainerForFollow = styled.div<{ nightmode: boolean }>`
   width: 480px;
   height: 85px;
   padding-left: 32px;
   padding-right: 83px;
-  background: ${(props) => (props.nightMode ? "#141D2F" : "#F6F8FF")};
+  background: ${(props) => (props.nightmode ? "#141D2F" : "#F6F8FF")};
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -183,7 +183,7 @@ const ContainerForFollow = styled.div<{ nightMode: boolean }>`
   & p {
     display: grid;
     flex-direction: column;
-    color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
+    color: ${(props) => (props.nightmode ? "#fff" : "#4B6A9B")};
     font-family: "Space Mono";
     font-size: 13px;
     font-style: normal;
@@ -191,7 +191,7 @@ const ContainerForFollow = styled.div<{ nightMode: boolean }>`
     line-height: normal;
 
     & span {
-      color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+      color: ${(props) => (props.nightmode ? "#fff" : "#2b3442")};
       font-family: "Space Mono";
       font-size: 22px;
       font-style: normal;
@@ -223,10 +223,10 @@ const ContainerForFollow = styled.div<{ nightMode: boolean }>`
   }
 `;
 
-const Name = styled.p<{ nightMode: boolean }>`
+const Name = styled.p<{ nightmode: boolean }>`
   margin: 0;
   margin-bottom: 2px;
-  color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+  color: ${(props) => (props.nightmode ? "#fff" : "#2b3442")};
   font-family: "Space Mono";
   font-size: 26px;
   font-style: normal;
@@ -250,9 +250,9 @@ const Names = styled.div`
   }
 `;
 
-const Bio = styled.p<{ nightMode: boolean }>`
+const Bio = styled.p<{ nightmode: boolean }>`
   margin-top: 30px;
-  color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
+  color: ${(props) => (props.nightmode ? "#fff" : "#4B6A9B")};
   font-family: "Space Mono";
   font-size: 16px;
   font-style: normal;
@@ -329,7 +329,7 @@ const LeftForFollow = styled.div`
   }
 `;
 
-const Socials = styled.div<{ nightMode: boolean }>`
+const Socials = styled.div<{ nightmode: boolean }>`
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
@@ -339,7 +339,7 @@ const Socials = styled.div<{ nightMode: boolean }>`
   margin-top: 37px;
   gap: 30px;
   & p {
-    color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
+    color: ${(props) => (props.nightmode ? "#fff" : "#4B6A9B")};
     font-family: "Space Mono";
     font-size: 15px;
     font-style: normal;
@@ -386,7 +386,7 @@ const UserLinkForTwitter = styled.a`
   line-height: normal;
 `;
 
-const ToggleName = styled.div <{ nightMode: boolean }>`
+const ToggleName = styled.div <{ nightmode: boolean }>`
   display: flex;
   justify-content: space-between;
   width: 730px;
@@ -397,7 +397,7 @@ const ToggleName = styled.div <{ nightMode: boolean }>`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    color: ${(props) => (props.nightMode ? "#fff" : "#2b3442")};
+    color: ${(props) => (props.nightmode ? "#fff" : "#2b3442")};
   }
 
   @media screen and (max-width: 768px) {
@@ -409,9 +409,9 @@ const ToggleName = styled.div <{ nightMode: boolean }>`
   }
 `;
 
-const Join = styled.p<{ nightMode: boolean }>`
+const Join = styled.p<{ nightmode: boolean }>`
   margin-top: 10px;
-  color: ${(props) => (props.nightMode ? "#fff" : "#4B6A9B")};
+  color: ${(props) => (props.nightmode ? "#fff" : "#4B6A9B")};
   font-family: "Space Mono";
   font-size: 15px;
   font-style: normal;
@@ -461,7 +461,7 @@ const AlertError = styled.div`
 // ... (previous imports and styled components)
 
 const App: React.FC = () => {
-  const [nightMode, setNightMode] = useState(false);
+  const [nightmode, setNightMode] = useState(false);
   const toggleNightMode = () => {
     setNightMode((prevNightMode) => !prevNightMode);
   };
@@ -544,11 +544,11 @@ const App: React.FC = () => {
 
 
   return (
-    <Container nightMode={nightMode}>
-      <GlobalStyle nightMode={nightMode} />
-      <ToggleName nightMode={nightMode}>
+    <Container nightmode={nightmode}>
+      <GlobalStyle nightmode={nightmode} />
+      <ToggleName nightmode={nightmode}>
         <h1>devfinder</h1>
-        <NightMode nightMode={nightMode} toggleNightMode={toggleNightMode} />
+        <NightMode nightmode={nightmode} toggleNightMode={toggleNightMode} />
       </ToggleName>
       <InputCont>
         <svg
@@ -568,7 +568,7 @@ const App: React.FC = () => {
           placeholder="Search GitHub username…"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          nightMode={nightMode}
+          nightmode={nightmode}
         />
 
         <Button onClick={handleSearch}>Search</Button>
@@ -576,7 +576,7 @@ const App: React.FC = () => {
       </InputCont>
 
       {profileData.profile && (
-        <ProfileInfo nightMode={nightMode}>
+        <ProfileInfo nightmode={nightmode}>
           <Head>
             {profileData.profile.avatar_url && (
               <img
@@ -590,7 +590,7 @@ const App: React.FC = () => {
             )}
             <Left>
               <Names>
-                <Name nightMode={nightMode}>{profileData.profile.name}</Name>
+                <Name nightmode={nightmode}>{profileData.profile.name}</Name>
                 <UserLink
                   href={`https://github.com/${profileData.profile.login}`}
                   target="_blank"
@@ -598,15 +598,15 @@ const App: React.FC = () => {
                 >
                   @{profileData.profile.pseudoName}
                 </UserLink>
-                <Bio nightMode={nightMode}>{profileData.profile.bio}</Bio>
+                <Bio nightmode={nightmode}>{profileData.profile.bio}</Bio>
               </Names>
-              <Join nightMode={nightMode}>Joined {profileData.profile.joinDate}</Join>
+              <Join nightmode={nightmode}>Joined {profileData.profile.joinDate}</Join>
             </Left>
 
           </Head>
 
           <LeftForFollow>
-            <ContainerForFollow nightMode={nightMode}>
+            <ContainerForFollow nightmode={nightmode}>
               <p>
                 Repos <span>{profileData.profile.public_repos}</span>
               </p>
@@ -630,10 +630,10 @@ const App: React.FC = () => {
               ))}
             </SocialLinks>
             {/* New fields */}
-            <Socials nightMode={nightMode}>
+            <Socials nightmode={nightmode}>
               <p>
                 <StyledSVG
-                  nightMode={nightMode}
+                  nightmode={nightmode}
                   width="14"
                   height="20"
                   viewBox="0 0 14 20"
@@ -650,7 +650,7 @@ const App: React.FC = () => {
               </p>
               <p>
                 <StyledSVG
-                  nightMode={nightMode}
+                  nightmode={nightmode}
                   width="20"
                   height="18"
                   viewBox="0 0 20 18"
@@ -664,25 +664,25 @@ const App: React.FC = () => {
                   />
                 </StyledSVG>
                 <UserLinkForTwitter
-  href={profileData.profile.twitter_username ? `https://twitter.com/${profileData.profile.twitter_username}` : '#'}
-  target="_blank"
-  rel="noopener noreferrer"
-  className={`linkContainer ${profileData.profile.twitter_username ? 'available' : ''}`}
->
-  {profileData.profile.twitter_username ? (
-    <span className={`link ${nightMode ? 'nightMode' : ''} ${profileData.profile.twitter_username ? 'available' : ''}`}>
-      {profileData.profile.twitter_username}
-    </span>
-  ) : (
-    <span className={`link ${nightMode ? 'nightMode' : ''}`}>Not available</span>
-  )}
-</UserLinkForTwitter>
+                  href={profileData.profile.twitter_username ? `https://twitter.com/${profileData.profile.twitter_username}` : '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`linkContainer ${profileData.profile.twitter_username ? 'available' : ''}`}
+                >
+                  {profileData.profile.twitter_username ? (
+                    <span className={`link ${nightmode ? 'nightmode' : ''} ${profileData.profile.twitter_username ? 'available' : ''}`}>
+                      {profileData.profile.twitter_username}
+                    </span>
+                  ) : (
+                    <span className={`link ${nightmode ? 'nightmode' : ''}`}>Not available</span>
+                  )}
+                </UserLinkForTwitter>
 
               </p>
               <UserWebsite >
                 <p>
                   <StyledSVG
-                    nightMode={nightMode}
+                    nightmode={nightmode}
                     width="20"
                     height="20"
                     viewBox="0 0 20 20"
@@ -696,12 +696,12 @@ const App: React.FC = () => {
                       d="M13.439 13.7495C13.4389 13.7496 13.4388 13.7497 13.4388 13.7499C13.4409 13.749 13.4428 13.7482 13.4449 13.7473C14.1036 12.5426 14.2333 11.161 13.9246 9.81419L13.9232 9.81564L13.9217 9.81498C13.6285 8.61541 12.8241 7.42424 11.7316 6.69084C11.6376 6.62775 11.4875 6.63506 11.3995 6.70623C10.8461 7.15369 10.3044 7.72748 9.94697 8.4597C9.89083 8.57466 9.93287 8.71275 10.0435 8.77697C10.4583 9.01779 10.8329 9.37037 11.0837 9.83845L11.0841 9.83818C11.2796 10.1688 11.4722 10.7963 11.3474 11.4704C11.3474 11.4704 11.3472 11.4704 11.3472 11.4704C11.2308 12.3642 10.3282 13.184 9.61068 13.9228L9.61103 13.9231C9.06486 14.4817 7.67646 15.897 7.12052 16.465C6.12267 17.4834 4.47299 17.5003 3.45455 16.5024C2.43612 15.5046 2.41928 13.8549 3.41713 12.8365L4.93834 11.2721C5.00728 11.2012 5.03072 11.0981 5.00006 11.0041C4.66228 9.96775 4.56975 8.57201 4.78295 7.49439C4.78889 7.46435 4.75193 7.44517 4.73049 7.46705L1.551 10.7122C-0.53228 12.8384 -0.514624 16.3003 1.5903 18.4052C3.71647 20.4884 7.16049 20.4532 9.24369 18.327C9.9674 17.5175 13.0654 14.6492 13.439 13.7495Z"
                     />
                   </StyledSVG>
-                    {websiteInfo}
+                  {websiteInfo}
                 </p>
               </UserWebsite>
               <p>
                 <StyledSVG
-                  nightMode={nightMode}
+                  nightmode={nightmode}
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -719,7 +719,8 @@ const App: React.FC = () => {
                     d="M12.9166 7.79248L18.85 9.03498C19.5308 9.18581 20 9.77165 20 10.46V18.5416C20 19.3458 19.3458 20 18.5416 20H12.9166V7.79248ZM15.625 17.5H16.875C17.22 17.5 17.5 17.22 17.5 16.875C17.5 16.53 17.22 16.25 16.875 16.25H15.625C15.28 16.25 15 16.53 15 16.875C15 17.22 15.28 17.5 15.625 17.5ZM16.875 15H15.625C15.28 15 15 14.72 15 14.375C15 14.03 15.28 13.75 15.625 13.75H16.875C17.22 13.75 17.5 14.03 17.5 14.375C17.5 14.72 17.22 15 16.875 15ZM15.625 12.5H16.875C17.22 12.5 17.5 12.22 17.5 11.875C17.5 11.53 17.22 11.25 16.875 11.25H15.625C15.28 11.25 15 11.53 15 11.875C15 12.22 15.28 12.5 15.625 12.5Z"
                   />
                 </StyledSVG>
-                {profileData.profile.company}
+
+                  {profileData.profile.company}
               </p>
             </Socials>
           </LeftForFollow>

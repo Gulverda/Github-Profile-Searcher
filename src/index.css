@@ -14,7 +14,7 @@
 
 .link {
   color: #4B6A9B;
-  opacity: 0.5;
+  opacity: 1;
   cursor: not-allowed;
   text-decoration: none;
 }
@@ -32,4 +32,13 @@
 
 .link.nightMode {
   color: #fff;
+}
+
+
+.green-text {
+  color: green;
+}
+
+.red-text {
+  color: red;
 }
