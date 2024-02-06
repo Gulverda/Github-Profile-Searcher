@@ -376,6 +376,10 @@ const UserLink = styled.a`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  @media screen and (max-width: 575px) {
+    font-size: 13px;
+  }
 `;
 
 const UserLinkForTwitter = styled.a`
@@ -384,6 +388,10 @@ const UserLinkForTwitter = styled.a`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  @media screen and (max-width: 575px) {
+    font-size: 13px;
+  }
 `;
 
 const ToggleName = styled.div <{ nightmode: boolean }>`
@@ -664,19 +672,21 @@ const App: React.FC = () => {
                   />
                 </StyledSVG>
                 <UserLinkForTwitter
-                  href={profileData.profile.twitter_username ? `https://twitter.com/${profileData.profile.twitter_username}` : '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`linkContainer ${profileData.profile.twitter_username ? 'available' : ''}`}
-                >
-                  {profileData.profile.twitter_username ? (
-                    <span className={`link ${nightmode ? 'nightmode' : ''} ${profileData.profile.twitter_username ? 'available' : ''}`}>
-                      {profileData.profile.twitter_username}
-                    </span>
-                  ) : (
-                    <span className={`link ${nightmode ? 'nightmode' : ''}`}>Not available</span>
-                  )}
-                </UserLinkForTwitter>
+  href={profileData.profile.twitter_username ? `https://twitter.com/${profileData.profile.twitter_username}` : '#'}
+  target="_blank"
+  rel="noopener noreferrer"
+  className={`linkContainer ${profileData.profile.twitter_username ? 'available' : ''}`}
+>
+  {profileData.profile.twitter_username ? (
+    <span className={`link ${nightmode ? 'nightMode' : ''} ${profileData.profile.twitter_username ? 'available' : ''}`}>
+      {profileData.profile.twitter_username}
+    </span>
+  ) : (
+    <span className={`link ${nightmode ? 'nightMode' : ''}`}>Not available</span>
+  )}
+</UserLinkForTwitter>
+
+
 
               </p>
               <UserWebsite >
