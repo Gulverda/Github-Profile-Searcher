@@ -31,8 +31,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Screenshots
 
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
+![Screenshot 1](screenshots/githup-user-profile-search-night.png)
+![Screenshot 2](screenshots/profile-searcher.png)
 
 
 ### `npm run eject`
